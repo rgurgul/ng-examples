@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="card card-body m-2 bg-info">
+    <h2>Services</h2>
+  </div>
+  <div class="card card-body m-2">
+    <h2>Components</h2>
+    <app-card [data]="contacts[0]"></app-card>
+
+    {{currentPhone}}
+    <app-card (onChange)="phoneChange($event)" *ngFor="let contact of contacts" [data]="contact"></app-card>
+
+    <hr>
+    <app-img-thumb (onChange)="imgChange($event)" *ngFor="let url of images" [url]="url"></app-img-thumb>
+    <img [src]="currentImg" alt="">
+  </div>
+  <div class="card card-body m-2">
+    <h2>Directives</h2>
+    <ul>
+      <li
+        class="text-white m-1"
+        [id]="idx"
+        [ngClass]="{ 'bg-success': odd, 'bg-info': !odd, 'bg-danger': first }"
+        *ngFor="
+          let item of ['Joe', 'Mike', 'Alice'];
+          let idx = index;
+          let odd = odd;
+          let first = first
+        "
+      >
+        {{ idx + 1 }} {{ item }} {{ odd }}
+      </li>
+    </ul>
+    <hr />
+
+    <div class="bg-success" *ngIf="access">ok</div>
+    <div class="bg-danger" *ngIf="!access">not ok</div>
+
+    <div [ngClass]="{ 'bg-info': access, 'bg-danger': !access }">
+      {{ access ? "ok" : "not ok" }}
+    </div>
+
+    <input
+      type="checkbox"
+      [checked]="access"
+      #x
+      (change)="changeAccess(x.checked)"
+    />
+
+    <input
+      type="checkbox"
+      [checked]="access"
+      #y
+      (change)="access = y.checked"
+    />
+
+    <input type="checkbox" [(ngModel)]="access" />
+    <input type="checkbox" [ngModel]="access" />
+    <input type="text" ngModel="robert" />
+  </div>
+  <div class="card card-body m-2">
+    <h2>Pipes & interpolation</h2>
+    {{ myName | uppercase }}
+    <hr />
+    {{ today | date: "dd-MMM-yyyy --- h:m:s" | uppercase }}
+    <br />
+    {{ today / 1000 / 60 / 60 / 24 / 365 + 1970 }}
+    <hr />
+    {{ myName | welcome: "pl" }}
+    <br />
+    {{ myName | welcome: "x" }}
+    <br />
+    {{ myName | welcome }}
+  </div>
+</div>
